@@ -55,9 +55,27 @@ st.markdown(f"""
     </style>
     """, unsafe_allow_html=True)
 
+st.markdown("""
+    <style>
+    [role=radiogroup]{
+        gap: 1rem;
+        font-size:18px;
+    }
+    
+    
+    </style>
+    """,unsafe_allow_html=True)
+
+
 # Voeg logo toe boven de instellingen in de zijbalk
 st.sidebar.image("https://www.uw-tuingids.be/assets/websitedata/uwtuingids.be/img/logo.svg", use_column_width=True)
 st.sidebar.title("Navigatie")
+
+# Voeg een link toe voor de navigatie zonder "Overzicht alle planten"
+keuze = st.sidebar.selectbox(
+    "Maak uw keuze",
+    ["Oefen planten", "Test kennis (Multiple choice)", "Test kennis (Expert)"]
+)
 
 # Vraag de gebruiker om een startnummer en eindnummer te selecteren in de zijbalk
 min_nummer = plant_data_df['Nummer'].min()
@@ -230,27 +248,10 @@ def oefen_planten():
         st.session_state.oefen_index = 0
         st.session_state.reset_oefening = False
 
-    # Navigatieknoppen boven de plantnamen
-    col_nav = st.columns(3)
-    with col_nav[0]:
-        if st.button("Vorige plant"):
-            if st.session_state.oefen_index > 0:
-                st.session_state.oefen_index -= 1
-    with col_nav[1]:
-        if st.button("Herstart oefening"):
-            st.session_state.oefen_index = 0
-    with col_nav[2]:
-        if st.button("Volgende plant"):
-            if st.session_state.oefen_index < len(st.session_state.oefen_planten) - 1:
-                st.session_state.oefen_index += 1
-            else:
-                st.session_state.oefen_index = 0  # Terug naar het begin
+
 
     # Haal de huidige plant op na het verwerken van de knoppen
     huidige_plant = st.session_state.oefen_planten.iloc[st.session_state.oefen_index]
-
-    # Scheidingslijn
-    st.markdown("---")
 
     # Toon de plantinformatie
     st.write(f"Plant {st.session_state.oefen_index + 1} van {len(st.session_state.oefen_planten)}")
@@ -268,11 +269,23 @@ def oefen_planten():
     if pd.notnull(extra_info) and extra_info.strip():
         st.info(f"{extra_info}")
 
-# Voeg een link toe voor de navigatie zonder "Overzicht alle planten"
-keuze = st.sidebar.selectbox(
-    "Maak uw keuze",
-    ["Oefen planten", "Test kennis (Multiple choice)", "Test kennis (Expert)"]
-)
+    # Navigatieknoppen onder de plantnamen
+    col_nav = st.columns(3)
+    with col_nav[0]:
+        if st.button("Vorige plant"):
+            if st.session_state.oefen_index > 0:
+                st.session_state.oefen_index -= 1
+    #with col_nav[1]:
+    #    if st.button("Herstart oefening"):
+    #        st.session_state.oefen_index = 0
+    with col_nav[1]:
+        if st.button("Volgende plant"):
+            if st.session_state.oefen_index < len(st.session_state.oefen_planten) - 1:
+                st.session_state.oefen_index += 1
+            else:
+                st.session_state.oefen_index = 0  # Terug naar het begin
+
+
 
 # Toon de gewenste pagina afhankelijk van de selectie
 if keuze == "Oefen planten":
