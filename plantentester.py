@@ -61,11 +61,8 @@ st.markdown("""
         gap: 1rem;
         font-size:18px;
     }
-    
-    
     </style>
     """,unsafe_allow_html=True)
-
 
 # Voeg logo toe boven de instellingen in de zijbalk
 st.sidebar.image("https://www.uw-tuingids.be/assets/websitedata/uwtuingids.be/img/logo.svg", use_column_width=True)
@@ -248,8 +245,6 @@ def oefen_planten():
         st.session_state.oefen_index = 0
         st.session_state.reset_oefening = False
 
-
-
     # Haal de huidige plant op na het verwerken van de knoppen
     huidige_plant = st.session_state.oefen_planten.iloc[st.session_state.oefen_index]
 
@@ -270,22 +265,13 @@ def oefen_planten():
         st.info(f"{extra_info}")
 
     # Navigatieknoppen onder de plantnamen
-    col_nav = st.columns(3)
-    with col_nav[0]:
-        if st.button("Vorige plant"):
-            if st.session_state.oefen_index > 0:
-                st.session_state.oefen_index -= 1
-    #with col_nav[1]:
-    #    if st.button("Herstart oefening"):
-    #        st.session_state.oefen_index = 0
-    with col_nav[1]:
+    col_nav = st.columns([2, 1])  # Twee kolommen, waarvan de rechter smaller is
+    with col_nav[1]:  # De knop wordt in de rechterkolom geplaatst voor rechts uitlijnen
         if st.button("Volgende plant"):
             if st.session_state.oefen_index < len(st.session_state.oefen_planten) - 1:
                 st.session_state.oefen_index += 1
             else:
                 st.session_state.oefen_index = 0  # Terug naar het begin
-
-
 
 # Toon de gewenste pagina afhankelijk van de selectie
 if keuze == "Oefen planten":
