@@ -48,10 +48,7 @@ st.markdown(f"""
     .stProgress > div > div > div > div {{
         background-color: #00652d;
     }}
-    /* Aanpassen van de achtergrondkleur van de zijbalk */
-    [data-testid="stSidebar"] > div:first-child {{
-        background-color: #e6ede6;
-    }}
+
     </style>
     """, unsafe_allow_html=True)
 
