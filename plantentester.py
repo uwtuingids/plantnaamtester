@@ -13,7 +13,7 @@ def laad_plantenlijst():
 plant_data_df = laad_plantenlijst()
 
 # Controleer of de vereiste kolommen aanwezig zijn
-vereiste_kolommen = ['Nummer', 'Nederlands', 'Wetenschappelijke naam', 'Extra info']
+vereiste_kolommen = ['Nummer', 'Nederlands', 'Wetenschappelijke naam', 'Extra info', 'Afbeelding']
 if not all(kolom in plant_data_df.columns for kolom in vereiste_kolommen):
     st.error(f"Het CSV-bestand moet de volgende kolommen bevatten: {', '.join(vereiste_kolommen)}")
     st.stop()
@@ -149,8 +149,8 @@ def quiz_multiple_choice():
     st.markdown(f"<h4>{vraag}</h4>", unsafe_allow_html=True)
 
     # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
-    if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(geselecteerde_plant.get('Afbeelding')):
-        st.image(geselecteerde_plant['Afbeelding'], width=300)
+    #if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(geselecteerde_plant.get('Afbeelding')):
+    #    st.image(geselecteerde_plant['Afbeelding'], width=300)
 
     # Toon de radioknoppen en maak ze inactief zodra een keuze is gemaakt
     gebruikersantwoord = st.radio("Selecteer de juiste optie:", opties, key="radio", disabled=st.session_state.radiobutton_disabled)
@@ -200,8 +200,8 @@ def expert_mode():
     st.markdown(f"<h4>{vraag}</h4>", unsafe_allow_html=True)
 
     # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
-    if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(geselecteerde_plant.get('Afbeelding')):
-        st.image(geselecteerde_plant['Afbeelding'], width=300)
+    #if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(geselecteerde_plant.get('Afbeelding')):
+    #    st.image(geselecteerde_plant['Afbeelding'], width=300)
 
     # Invoerveld voor het antwoord
     def check_antwoord():
@@ -248,10 +248,6 @@ def oefen_planten():
     # Toon de plantinformatie
     st.write(f"Plant {st.session_state.oefen_index + 1} van {len(st.session_state.oefen_planten)}")
 
-    # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
-    if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
-        st.image(huidige_plant['Afbeelding'], use_column_width=True)
-
     # Toon de plantnamen met verbeterde opmaak
     st.markdown(f"<h2 style='color: #00652d;'>{huidige_plant['Nederlands']}</h2>", unsafe_allow_html=True)
     st.markdown(f"<h3 style='font-style: italic; color: #2b7a78;'>{huidige_plant['Wetenschappelijke naam']}</h3>", unsafe_allow_html=True)
@@ -269,6 +265,10 @@ def oefen_planten():
                 st.session_state.oefen_index += 1
             else:
                 st.session_state.oefen_index = 0  # Terug naar het begin
+
+    # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
+    if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
+        st.image(f"Afbeeldingen/{huidige_plant['Afbeelding']}", use_column_width=True)
 
 # Toon de gewenste pagina afhankelijk van de selectie
 if keuze == "Oefen planten":
