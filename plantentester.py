@@ -268,7 +268,7 @@ def oefen_planten():
 
     # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
     if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
-        st.image(f"Afbeeldingen/{huidige_plant['Afbeelding']}", use_column_width=True)
+        st.image(huidige_plant['Afbeelding'], use_column_width=True)
 
 # Toon de gewenste pagina afhankelijk van de selectie
 if keuze == "Oefen planten":
