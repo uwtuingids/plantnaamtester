@@ -1,16 +1,53 @@
+
+import streamlit as st
+import pandas as pd
+
+# Laad verschillende CSV-bestanden en wijs elke een naam toe
+csv_files = {
+    "Planten les 1 Johan": "Data/PlantenLes1.csv",
+    "West-Europese bomen": "Data/WestEuropeseBomen.csv"
+}
+
+# Voeg een dropdown toe in de sidebar om een CSV-bestand te selecteren met een unieke sleutel
+chosen_csv = st.sidebar.selectbox("Kies een plantenlijst", options=list(csv_files.keys()), key="plantenlijst_selectie")
+
+# Functie om de plantenlijst te laden op basis van de gekozen CSV
+@st.cache_data
+def laad_plantenlijst(csv_name):
+    csv_path = csv_files[csv_name]  # Haal het juiste CSV-bestand op
+    # Probeer met komma als scheidingsteken, anders met puntkomma
+    try:
+        return pd.read_csv(csv_path)
+    except pd.errors.ParserError:
+        return pd.read_csv(csv_path, sep=';')  # Indien puntkomma als scheidingsteken
+
+# Laad de plantenlijst op basis van de gekozen CSV, zodat deze beschikbaar is voor alle opties
+plantenlijst = laad_plantenlijst(chosen_csv)
+
+keuze = st.sidebar.selectbox(
+    "Maak uw keuze",
+    ["Oefen planten", "Bekijk volledige plantenlijst", "Test kennis (Multiple choice)", "Test kennis (Expert)"]
+)
+
+# Functie om de plantenlijst te laden op basis van de gekozen CSV
+@st.cache_data
+def laad_plantenlijst(csv_name):
+    csv_path = csv_files[csv_name]  # Haal het juiste CSV-bestand op
+    # Probeer met komma als scheidingsteken, anders met puntkomma
+    try:
+        return pd.read_csv(csv_path)
+    except pd.errors.ParserError:
+        return pd.read_csv(csv_path, sep=';')  # Indien puntkomma als scheidingsteken
+
+# Laad de gekozen plantenlijst
+plantenlijst = laad_plantenlijst(chosen_csv)
+
 import streamlit as st
 import pandas as pd
 import random
 
-# Functie om de plantenlijst uit een CSV-bestand te laden met een puntkomma als scheidingsteken
-@st.cache_data
-def laad_plantenlijst():
-    # Lees de CSV met de juiste delimiter
-    planten_df = pd.read_csv('Data/Planten.csv', delimiter=';')
-    return planten_df
-
 # Plantenlijst inladen
-plant_data_df = laad_plantenlijst()
+plant_data_df = laad_plantenlijst(chosen_csv)
 
 # Controleer of de vereiste kolommen aanwezig zijn
 vereiste_kolommen = ['Nummer', 'Nederlands', 'Wetenschappelijke naam', 'Extra info', 'Afbeelding']
@@ -61,15 +98,7 @@ st.markdown("""
     </style>
     """,unsafe_allow_html=True)
 
-# Voeg logo toe boven de instellingen in de zijbalk
-st.sidebar.image("https://www.uw-tuingids.be/assets/websitedata/uwtuingids.be/img/logo.svg", use_column_width=True)
-st.sidebar.title("Navigatie")
 
-# Voeg een link toe voor de navigatie zonder "Overzicht alle planten"
-keuze = st.sidebar.selectbox(
-    "Maak uw keuze",
-    ["Oefen planten", "Test kennis (Multiple choice)", "Test kennis (Expert)"]
-)
 
 # Vraag de gebruiker om een startnummer en eindnummer te selecteren in de zijbalk
 min_nummer = plant_data_df['Nummer'].min()
@@ -270,10 +299,23 @@ def oefen_planten():
     if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
         st.image(huidige_plant['Afbeelding'], use_column_width=True)
 
+
+# Volledige plantenlijst weergegeven
+def volledige_planten_lijst():
+    st.title("Volledige plantenlijst")
+    aantal_planten = len(plantenlijst)
+    st.write(f"Aantal planten in de lijst: {aantal_planten}")
+
+    # Toon de volledige plantenlijst in tabelvorm
+    st.write(f"Volledige plantenlijst voor: {chosen_csv}")
+    st.dataframe(plantenlijst[["Nummer", "Nederlands", "Wetenschappelijke naam"]])
+
 # Toon de gewenste pagina afhankelijk van de selectie
 if keuze == "Oefen planten":
     oefen_planten()
 elif keuze == "Test kennis (Multiple choice)":
     quiz_multiple_choice()
+elif keuze == "Bekijk volledige plantenlijst":
+    volledige_planten_lijst()
 elif keuze == "Test kennis (Expert)":
     expert_mode()
