@@ -111,7 +111,7 @@ max_nummer = plant_data_df['Nummer'].max()
 
 st.sidebar.subheader("Selecteer plantbereik")
 start_nummer = st.sidebar.number_input("Start bij plantnummer:", min_value=min_nummer, max_value=max_nummer, value=min_nummer, step=1, key='start_nummer')
-eind_nummer = st.sidebar.number_input("Eindig bij plantnummer:", min_value=start_nummer, max_value=max_nummer, value=min(start_nummer + 9, max_nummer), step=1, key='eind_nummer')
+eind_nummer = st.sidebar.number_input("Eindig bij plantnummer:", min_value=start_nummer, max_value=max_nummer, value=max_nummer, step=1, key='eind_nummer')
 
 # Haal de geselecteerde planten op en sla ze op in sessiestatus
 gefilterde_plantenlijst = plant_data_df[(plant_data_df['Nummer'] >= start_nummer) & (plant_data_df['Nummer'] <= eind_nummer)].reset_index(drop=True)
