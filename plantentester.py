@@ -8,6 +8,11 @@ csv_files = {
     "West-Europese bomen": "Data/WestEuropeseBomen.csv"
 }
 
+# Voeg een dislaimer toe
+with st.sidebar:
+        st.write("Het doel van deze app is om namen van planten te oefenen. Deze app mag enkel gebruikt worden door studenten van Tuinaanlegger-groenbeheerder - Gent, eerste jaar, 2024-2025")
+        st.write("")
+
 # Voeg een dropdown toe in de sidebar om een CSV-bestand te selecteren met een unieke sleutel
 chosen_csv = st.sidebar.selectbox("Kies een plantenlijst", options=list(csv_files.keys()), key="plantenlijst_selectie")
 
@@ -298,7 +303,6 @@ def oefen_planten():
     # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
     if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
         st.image(huidige_plant['Afbeelding'], use_column_width=True)
-
 
 # Volledige plantenlijst weergegeven
 def volledige_planten_lijst():
