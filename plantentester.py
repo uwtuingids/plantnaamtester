@@ -5,7 +5,8 @@ import pandas as pd
 # Laad verschillende CSV-bestanden en wijs elke een naam toe
 csv_files = {
     "Planten les 1 Johan": "Data/PlantenLes1.csv",
-    "West-Europese bomen": "Data/WestEuropeseBomen.csv"
+    "West-Europese bomen": "Data/WestEuropeseBomen.csv",
+    "Morfologie": "Data/Morfologie.csv"
 }
 
 # Voeg een dislaimer toe
