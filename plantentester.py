@@ -302,7 +302,7 @@ def oefen_planten():
 
     # Optioneel: Toon afbeelding van de plant als er een 'Afbeelding' kolom is
     if 'Afbeelding' in gefilterde_plantenlijst.columns and pd.notnull(huidige_plant.get('Afbeelding')):
-        st.image(huidige_plant['Afbeelding'], use_column_width=True)
+        st.image(huidige_plant['Afbeelding'], use_container_width=True)
 
 # Volledige plantenlijst weergegeven
 def volledige_planten_lijst():
