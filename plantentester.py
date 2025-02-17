@@ -7,12 +7,14 @@ csv_files = {
     "Planten: alg.": "Data/PlantenLes1.csv",
     "West-Europese bomen": "Data/WestEuropeseBomen.csv",
     "Morfologie: alg.": "Data/Morfologie.csv",
-    "Morfologie: blad": "Data/Bladeren.csv"
+    "Morfologie: blad": "Data/Bladeren.csv",
+    "Bloemen": "Data/Bloemen.csv",
+    "Kruiden": "Data/Kruiden.csv"
 }
 
 # Voeg een dislaimer toe
 with st.sidebar:
-        st.write("Het doel van deze app is om namen van planten te oefenen. Deze app mag enkel gebruikt worden door studenten van Tuinaanlegger-groenbeheerder - Gent, eerste jaar, 2024-2025")
+        st.write("Het doel van deze app is om namen van planten te oefenen. Deze app is privé en enkel voor medestudenten Tuinaanlegger-groenbeheerder, Syntra Gent.")
         st.write("")
 
 # Voeg een dropdown toe in de sidebar om een CSV-bestand te selecteren met een unieke sleutel
