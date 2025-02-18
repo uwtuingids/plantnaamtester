@@ -9,7 +9,12 @@ csv_files = {
     "Morfologie: alg.": "Data/Morfologie.csv",
     "Morfologie: blad": "Data/Bladeren.csv",
     "Bloemen": "Data/Bloemen.csv",
-    "Kruiden": "Data/Kruiden.csv"
+    "Kruiden": "Data/Kruiden.csv",
+    "Rosaceae": "Data/Rosaceae.csv",
+    "Fagaceae": "Data/Fagaceae.csv",
+    "Betulaceae": "Data/Betulaceae.csv",
+    "Pinaceae": "Data/Pinaceae.csv",
+    "Salicaceae": "Data/Salicaceae.csv"
 }
 
 # Voeg een dislaimer toe
